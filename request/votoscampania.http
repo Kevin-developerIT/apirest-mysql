@@ -1,0 +1,16 @@
+@getusuarios = http://localhost:3001/api/votoscampania/getusuarios
+@saveusuario = http://localhost:3001/api/votoscampania/saveusuario
+
+POST {{saveusuario}}
+Content-Type: application/json
+
+{
+    "fecha": "2024-06-06",
+    "descripcion": "campañas",
+    "link": "pendiente",
+    "usuario": "veyraabram@gmail.com",
+    "fecha_actualizacion": "2024-06-06"
+}
+
+###
+GET {{getusuarios}}

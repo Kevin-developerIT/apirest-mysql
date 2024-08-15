@@ -1,0 +1,110 @@
+@getSolicitudes = http://localhost:3001/api/regionalartist/getSolicitudes
+@saveusuario = http://localhost:3001/api/regionalartist/saveusuario
+@getArchivosRegionalArtist = http://localhost:3001/api/archivos/getArchivosRegionalArtist/image1718156976793.pdf 
+@updateusuario = http://localhost:3001/api/regionalartist/Rechazarusuario
+@Aprobarusuario = http://localhost:3001/api/regionalartist/Aprobarusuario
+@deleteUsuario = http://localhost:3001/api/regionalartist/deleteUsuario
+@getAprobados = http://localhost:3001/api/regionalartist/getAprobados
+@getRechazados = http://localhost:3001/api/regionalartist/getRechazados
+@getRegistros = http://localhost:3001/api/regionalartist/getRegistro
+@saveadmin = http://localhost:3001/api/regionalartist/saveadmin
+@login = http://localhost:3001/api/token/login
+@protected=http://localhost:3001/api/protected/protected-data
+
+POST {{login}}
+Content-Type: application/json
+
+{
+    "correo": "kevin@gmail.com",
+    "password": "hola123"
+}
+
+###
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTcxOTQ2NzI4MywiZXhwIjoxNzE5NDcwODgzfQ.myKn3dAy5WBGtqNCyGS0UKRMzHRm0BChUMduMD9Xb8s
+### Acceder a una Ruta Protegida
+GET {{protected}}
+Authorization: Bearer {{token}}
+###
+POST {{saveadmin}}
+Content-Type: application/json
+
+{
+    "nombre": "kevin martinez",
+    "apeidos": "martinez martinez",
+    "correo": "kevin@gmail.com",
+    "telefono": "1234123443",
+    "password": "hola123",
+    "usuario": "veyraabram@gmail.com"
+}
+
+###
+DELETE {{deleteUsuario}}
+Content-Type: application/json
+
+{
+    "id_usuario": 2
+}
+###
+PUT {{Aprobarusuario}}
+Content-Type: application/json
+
+{
+    "id_usuario": 2
+}
+###
+PUT {{updateusuario}}
+Content-Type: application/json
+
+{
+    "id_usuario": 20
+}
+###
+GET {{getArchivosRegionalArtist}}/image1718156976793.pdf 
+###
+POST {{saveusuario}}
+Content-Type: application/json
+
+{
+    "nombre": "kevin martinez",
+    "apeidos": "martinez martinez",
+    "edad": 18,
+    "escuela": "secundaria",
+    "telefono": "1234567890",
+    "region": "chilchota",
+    "email": "kevinmartinex@gmail.com",
+    "archivo": "archivo.pdf",
+    "estatus_usuario": "1",
+    "estatus_proceso": "0",
+    "comentario": "quiero trabajo por favor",
+    "id_web": 1
+}
+
+###
+POST {{getSolicitudes}}
+Content-Type: application/json
+
+{
+    "proceso": 1
+}
+###
+POST {{getRechazados}}
+Content-Type: application/json
+
+{
+    "proceso": 0
+}
+###
+
+POST {{getAprobados}}
+Content-Type: application/json
+
+{
+    "proceso": 2
+}
+###
+POST {{getRegistros}}
+Content-Type: application/json
+
+{
+    "proceso": 0
+}
