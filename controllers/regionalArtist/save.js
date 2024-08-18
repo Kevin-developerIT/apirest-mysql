@@ -63,8 +63,8 @@ const {nombre, apeidos, edad, conociendo, telefono, region, email, contrasena} =
        const [results] = await connection.execute(
            'INSERT INTO u943042028_registro.tb_web_usuarios_reg_01 ' +
            '(fecha, nombre, apeidos, edad, escuela, telefono, region, email, archivo, estatus_usuario, estatus_proceso, comentario, id_web, fecha_actualizacion, como_se_entero, `data`, password) ' +
-           'VALUES(CURRENT_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, "archivo", 1, 1, "comentario", 1, CURRENT_TIMESTAMP(), NULL, NULL, ?);',
-  [nombre, apeidos, edad, escuela, telefono, region ,email, hashedPassword] //  [nombre, apeidos, edad, escuela, telefono, region, email, hashedPassword]
+           'VALUES(CURRENT_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, "archivo", 1, 1, "comentario", 1, CURRENT_TIMESTAMP(), ?, NULL, ?);',
+  [nombre, apeidos, edad, escuela, telefono, region ,email,conociendo, hashedPassword] //  [nombre, apeidos, edad, escuela, telefono, region, email, hashedPassword]
        );
 
        const insertId = results.insertId;
