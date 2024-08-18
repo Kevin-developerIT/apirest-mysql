@@ -75,17 +75,17 @@ router.route('/getSolicitudes').post( (request,response) => {
      });
     });
 
-   /* router.route('/getAprobados').post( (request,response) => {
+   router.route('/getAprobados').post( (request,response) => {
      let params = { ...request.body };
      query.getAprobados(params).then(result => {
      response.status(201).json(result);
      });
-    });*/
+    });
 
-    router.route('/getAprobados', authenticateToken).post( (request,response) => {
+    /*router.route('/getAprobados', authenticateToken).post( (request,response) => {
      let params = { ...request.body };
 
-     query.getSolicitudes(params, request) // Asegúrate de pasar la solicitud para la autenticación
+     query.getAprobados(params, request) // Asegúrate de pasar la solicitud para la autenticación
          .then(result => {
              response.status(200).json(result); // Usar 200 para solicitudes exitosas
          })
@@ -93,7 +93,7 @@ router.route('/getSolicitudes').post( (request,response) => {
              response.status(error.status || 500).json({ message: error.message }); // Manejo de errores
          });
 
-    });
+    });*/
 
     /*router.route('/getRechazados').post( (request,response) => {
      let params = { ...request.body };

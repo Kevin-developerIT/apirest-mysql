@@ -96,41 +96,41 @@ async function getSolicitudes(req, res) {
 
 
 async function getAprobados(req, res) {
-    //console.log(data)
+    //console.log(data);
     const connection = require('../../dbconfig');
 
     return new Promise((resolve, reject) => {
         connection.query(
-            'SELECT '+
-            'id_usuario'+
-            ',DATE_FORMAT(fecha, "%Y-%m-%d %H:%i:%s") AS fecha'+
-            ',nombre'+
-            ',apeidos'+
-            ',edad'+
-            ',escuela'+
-            ',telefono'+
-            ',region'+
-            ',email'+
-            ',archivo'+
-            ',estatus_usuario'+
-            ',estatus_proceso'+
-            ',comentario'+
-            ',id_web'+
-            ',fecha_actualizacion'+
-            ',como_se_entero, '+
-            'data ' +
-            'FROM u943042028_registro.tb_web_usuarios_reg_01 WHERE estatus_proceso = 2 AND estatus_usuario = 1;', 
+            'SELECT ' +
+            'id_usuario,' +
+            'DATE_FORMAT(fecha, "%Y-%m-%d %H:%i:%s") AS fecha,' +
+            'nombre,' +
+            'apeidos,' +
+            'edad,' +
+            'escuela,' +
+            'telefono,' +
+            'region,' +
+            'email,' +
+            'archivo,' +
+            'estatus_usuario,' +
+            'estatus_proceso,' +
+            'comentario,' +
+            'id_web,' +
+            'fecha_actualizacion,' +
+            'como_se_entero,' +
+            'IFNULL(data, "pendiente") AS data ' +
+            'FROM u943042028_registro.tb_web_usuarios_reg_01 ' +
+            'WHERE estatus_proceso = 2 AND estatus_usuario = 1;', 
             function (error, results, fields) {
                 if (error) {
                     reject(error);
                     return;
                 }
                 
-                // Convertir data de tipo BLOB a base64
                 const formattedResults = results.map(result => {
                     return {
                         ...result,
-                        data: result.data.toString('base64')  // Convertir BLOB a base64
+                        data: result.data === 'pendiente' ? 'pendiente' : result.data.toString('base64')  // Convertir BLOB a base64 solo si no es 'pendiente'
                     };
                 });
 
@@ -139,43 +139,43 @@ async function getAprobados(req, res) {
         );
     });
 }
+
 
 async function getRechazados(req, res) {
-    //console.log(data)
     const connection = require('../../dbconfig');
 
     return new Promise((resolve, reject) => {
         connection.query(
-            'SELECT '+
-            'id_usuario'+
-            ',DATE_FORMAT(fecha, "%Y-%m-%d %H:%i:%s") AS fecha'+
-            ',nombre'+
-            ',apeidos'+
-            ',edad'+
-            ',escuela'+
-            ',telefono'+
-            ',region'+
-            ',email'+
-            ',archivo'+
-            ',estatus_usuario'+
-            ',estatus_proceso'+
-            ',comentario'+
-            ',id_web'+
-            ',fecha_actualizacion'+
-            ',como_se_entero, '+
-            'data ' +
-            'FROM u943042028_registro.tb_web_usuarios_reg_01 WHERE estatus_proceso = 0 AND estatus_usuario = 1;', 
+            'SELECT ' +
+            'id_usuario,' +
+            'DATE_FORMAT(fecha, "%Y-%m-%d %H:%i:%s") AS fecha,' +
+            'nombre,' +
+            'apeidos,' +
+            'edad,' +
+            'escuela,' +
+            'telefono,' +
+            'region,' +
+            'email,' +
+            'archivo,' +
+            'estatus_usuario,' +
+            'estatus_proceso,' +
+            'comentario,' +
+            'id_web,' +
+            'fecha_actualizacion,' +
+            'como_se_entero,' +
+            'IFNULL(data, "pendiente") AS data ' +
+            'FROM u943042028_registro.tb_web_usuarios_reg_01 ' +
+            'WHERE estatus_proceso = 0 AND estatus_usuario = 1;', 
             function (error, results, fields) {
                 if (error) {
                     reject(error);
                     return;
                 }
                 
-                // Convertir data de tipo BLOB a base64
                 const formattedResults = results.map(result => {
                     return {
                         ...result,
-                        data: result.data.toString('base64')  // Convertir BLOB a base64
+                        data: result.data === 'pendiente' ? 'pendiente' : result.data.toString('base64')  // Convertir BLOB a base64 solo si no es 'pendiente'
                     };
                 });
 
@@ -184,6 +184,7 @@ async function getRechazados(req, res) {
         );
     });
 }
+
 
 async function getRegistros(req, res) {
     //console.log(data)
