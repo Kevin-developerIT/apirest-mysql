@@ -15,7 +15,7 @@ const sendEmail = (req, res) => {
     const mailOptions = {
         from: fromEmail,
         to: toEmail,
-        subject: 'Hola te saludamos de tu plataforma, regional Artist',
+        subject: 'Hola te saludamos de Regional Artist x-OMODA',
         html: html
     };
 
