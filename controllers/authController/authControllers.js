@@ -39,12 +39,13 @@ exports.loginContrasenia = async (req, res) => {
 
 exports.loginUsuario = async (req, res) => {
     const { email, password } = req.body;
-console.log(email, password)
+    console.log(email, password);
+
     try {
         // Consulta para obtener el usuario por correo
-        const query = 'SELECT id_usuario, nombre, apeidos, email, password, estatus_proceso FROM u943042028_registro.tb_web_usuarios_reg_01 WHERE email = ?;';
+        const query = 'SELECT id_usuario, nombre, apeidos, email, password, estatus_proceso, data FROM u943042028_registro.tb_web_usuarios_reg_01 WHERE email = ?;';
         const [rows] = await pool.query(query, [email]);
-        //console.log(rows.length)
+
         if (rows.length === 0) {
             return res.status(400).json({ message: 'User not found' });
         }
@@ -58,8 +59,22 @@ console.log(email, password)
             return res.status(400).json({ message: 'Incorrect password' });
         }
 
-        // Generar el token
-        const token = jwt.sign({ userId: user.id_usuario, nombre: user.nombre, apeidos: user.apeidos, correo: user.email, status: user.estatus_proceso }, secretKey, { expiresIn: '1h' });
+        // Determinar el valor de data basado en si el campo data es null o no
+        const dataStatus = user.data !== null ? 1 : 0;
+
+        // Generar el token, incluyendo el valor de dataStatus como data
+        const token = jwt.sign(
+            { 
+                userId: user.id_usuario, 
+                nombre: user.nombre, 
+                apeidos: user.apeidos, 
+                correo: user.email, 
+                status: user.estatus_proceso,
+                data: dataStatus 
+            }, 
+            secretKey, 
+            { expiresIn: '1h' }
+        );
 
         res.json({ token });
     } catch (error) {
@@ -67,6 +82,7 @@ console.log(email, password)
         res.status(500).json({ message: 'Error logging in', error });
     }
 };
+
 
 exports.login = async (req, res) => {
     const { correo, password } = req.body;
