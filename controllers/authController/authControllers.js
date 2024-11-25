@@ -83,6 +83,84 @@ exports.loginUsuario = async (req, res) => {
     }
 };
 
+exports.loginUsuariovw = async (req, res) => {
+    const { email, password } = req.body;
+    console.log(email, password);
+
+    try {
+        // Consulta para obtener el usuario por correo
+        const query = 'SELECT id_usuario, fecha, nombre, apellido_paterno, apellido_ma, email, password, ciudad, sucursal FROM u943042028_registro.tb_wap_web_usuriosvw_reg_01 WHERE email = ?;';
+        const [rows] = await pool.query(query, [email]);
+
+        if (rows.length === 0) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        const user = rows[0];
+
+        // Verificar la contraseña
+        const match = await bcrypt.compare(password, user.password);
+
+        if (!match) {
+            return res.status(400).json({ message: 'Incorrect password' });
+        }
+
+        // Determinar el valor de data basado en si el campo data es null o no
+        const dataStatus = user.data !== null ? 1 : 0;
+
+        // Generar el token, incluyendo el valor de dataStatus como data
+        const token = jwt.sign(
+            { 
+                userId: user.id_usuario, 
+                nombre: user.nombre, 
+                apeidoP: user.apellido_paterno, 
+                apeidoM: user.apellido_ma,
+                correo: user.email,
+                ciudad: user.ciudad,
+                sucursal:user.sucursal
+            }, 
+            secretKey, 
+            { expiresIn: '1h' }
+        );
+
+        res.json({ token });
+    } catch (error) {
+        console.error('Error:', error); // Mostrar el error en consola para depurar
+        res.status(500).json({ message: 'Error logging in', error });
+    }
+};
+
+exports.loginClave = async (req, res) => {
+    const { clave } = req.body;
+console.log(clave)
+    try {
+        // Consulta para obtener el usuario por correo
+        const query = 'SELECT id_clave, fecha, id_web, clave, fecha_actualizacion, usuario FROM u943042028_registro.tb_web_clave_reg_01 WHERE usuario ="veyraabram@gmail.com";';
+        const [rows] = await pool.query(query, [clave]);
+        //console.log(rows.length)
+        if (rows.length === 0) {
+            return res.status(400).json({ message: 'clave not found' });
+        }
+
+        const user = rows[0];
+
+        // Verificar la contraseña
+        const match = await bcrypt.compare(clave, user.clave);
+
+        if (!match) {
+            return res.status(400).json({ message: 'Incorrect clave' });
+        }
+
+        // Generar el token
+        const token = jwt.sign({  }, secretKey, { expiresIn: '1h' });
+
+        res.json({ token });
+    } catch (error) {
+        console.error('Error:', error); // Mostrar el error en consola para depurar
+        res.status(500).json({ message: 'Error logging in', error });
+    }
+};
+
 
 exports.login = async (req, res) => {
     const { correo, password } = req.body;

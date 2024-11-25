@@ -36,6 +36,8 @@ app.use((request,response,next) => {
   const authRoutes = require('./routes/regionalartist/auth.routes');
   const protectedRoutes = require('./routes/regionalartist/regionalArtist.routes');
   const email = require('./routes/regionalartist/correo.routes');
+  const claves = require('./routes/clavesweb/clave.routes');
+  const vw = require('./routes/vw/vw.routes');
 
 
 
@@ -45,6 +47,8 @@ app.use((request,response,next) => {
   app.use('/api/token', authRoutes);
   app.use('/api/protected', protectedRoutes);
   app.use('/api/correo', email);
+  app.use('/api/vwclave', claves);
+  app.use('/api/vweb', vw);
  
   
 
