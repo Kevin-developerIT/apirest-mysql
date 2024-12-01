@@ -2,7 +2,7 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 
 const sendEmail = (req, res) => {
-    const { toEmail, fromEmail, html } = req.body;
+    const { toEmail, fromEmail, text, html } = req.body;
   console.log(toEmail,fromEmail,html)
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -15,7 +15,7 @@ const sendEmail = (req, res) => {
     const mailOptions = {
         from: fromEmail,
         to: toEmail,
-        subject: 'Hola te saludamos de Regional Artist x-OMODA',
+        subject: text,
         html: html
     };
 

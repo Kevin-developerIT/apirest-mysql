@@ -3,6 +3,7 @@ const router = express.Router();
 const storage = require('../../multer/regionalArtist')
 const authenticateToken = require('../../controllers/middlaware/authMiddleware');
 const someProtectedController = require('../../controllers/authController/someProtectedController');
+const update = require("../../controllers/vw/update")
 const multer = require('multer')
 const uploader = multer({storage})
 
@@ -12,6 +13,11 @@ const save = require('../../controllers/vw/save');
 const query = require('../../controllers/vw/query');
 
 router.get('/protected-data', authenticateToken, someProtectedController.getProtectedData);
+
+router.route('/recuperarcontrasenia').put((req, res) => {
+     update.recuperarcontrasenia(req, res);
+ });
+ 
 
 router.route('/saveusuario').post( (request,response) => {
      let params = { ...request.body };
