@@ -37,6 +37,36 @@ exports.loginContrasenia = async (req, res) => {
     }
 };
 
+exports.loginContraseniavw = async (req, res) => {
+    const { email, password } = req.body;
+    console.log(email, password);
+
+    try {
+        // Consulta para obtener el usuario por correo
+        const query = 'SELECT email, password FROM u943042028_registro.tb_wap_web_usuriosvw_reg_01 WHERE email = ?;';
+        const [rows] = await pool.query(query, [email]);
+
+        if (rows.length === 0) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        const user = rows[0];
+
+        // Verificar la contraseña
+        const match = await bcrypt.compare(password, user.password);
+
+        if (!match) {
+            return res.status(400).json({ message: 'Incorrect password' });
+        }
+
+        // Respuesta exitosa si la contraseña es correcta
+        res.status(200).json({ message: 'Password is correct' });
+    } catch (error) {
+        console.error('Error:', error); // Mostrar el error en consola para depurar
+        res.status(500).json({ message: 'Error logging in', error });
+    }
+};
+
 exports.loginUsuario = async (req, res) => {
     const { email, password } = req.body;
     console.log(email, password);

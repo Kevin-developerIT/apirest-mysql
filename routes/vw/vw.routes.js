@@ -12,6 +12,19 @@ const uploader = multer({storage})
 const save = require('../../controllers/vw/save');
 const query = require('../../controllers/vw/query');
 
+router.put('/reestablecercontrasenia', (request, response) => {
+     let params = {...request.body}
+ 
+     update.reestablecercontrasenia(params, request)
+     .then(result => {
+         response.status(200).json(result);
+     })
+     .catch(error => {
+         response.status(error.status || 500).json({ message: error.message }); // Manejo de errores
+     });
+ 
+  })
+
 router.get('/protected-data', authenticateToken, someProtectedController.getProtectedData);
 
 router.route('/recuperarcontrasenia').put((req, res) => {

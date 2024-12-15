@@ -60,6 +60,7 @@ recuperarcontrasenia = async (req, res) => {
 
 
 const reestablecercontrasenia = async (params, request) => {
+    {console.log(params)}
     let hashedPassword;
     try {
         // Encriptar la nueva contraseña
@@ -69,7 +70,7 @@ const reestablecercontrasenia = async (params, request) => {
         throw { status: 500, message: 'Error al encriptar la contraseña' };
     }
 
-    const sql = 'UPDATE u943042028_registro.tb_web_usuarios_reg_01 SET ' +
+    const sql = 'UPDATE u943042028_registro.tb_web_usuriosvw_reg_01 SET ' +
                 'fecha_actualizacion = CURRENT_TIMESTAMP(), ' +
                 'password = ? ' +
                 'WHERE email = ?';
