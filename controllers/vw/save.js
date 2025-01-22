@@ -33,7 +33,7 @@ const saveusuario = async (req, res) => {
         await connection.end();
 
         let resultado = {
-            tabla: "tb_wap_web_usuriosvw_reg_01",
+            tabla: "tb_web_usuriosvw_reg_01",
             status: "CORRECTO",
             mensaje: "Se inserto correctamente",
             id: insertId,

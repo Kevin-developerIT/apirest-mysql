@@ -21,7 +21,7 @@ recuperarcontrasenia = async (req, res) => {
                    ,estatus
                    ,fecha_actualizacion
                    ,usuario
-                   ,id_clave FROM u943042028_registro.tb_wap_web_usuriosvw_reg_01 WHERE email = ?;`;
+                   ,id_clave FROM u943042028_registro.tb_web_usuriosvw_reg_01 WHERE email = ?;`;
         const [rows] = await pool.query(query, [req.body.email]);
         //console.log(rows.length)
         if (rows.length === 0) {
@@ -38,7 +38,7 @@ recuperarcontrasenia = async (req, res) => {
     }
 
     // Consulta SQL para actualizar la contraseña y la fecha de actualización
-    const sql = 'UPDATE u943042028_registro.tb_wap_web_usuriosvw_reg_01 SET ' +
+    const sql = 'UPDATE u943042028_registro.tb_web_usuriosvw_reg_01 SET ' +
                 'fecha_actualizacion = CURRENT_TIMESTAMP(), ' +
                 'password = ? ' +
                 'WHERE email = ?';

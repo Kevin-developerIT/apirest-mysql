@@ -19,7 +19,7 @@ id_usuario
 ,sucursal
 ,estatus
 ,fecha_actualizacion
-FROM u943042028_registro.tb_wap_web_usuriosvw_reg_01
+FROM u943042028_registro.tb_web_usuriosvw_reg_01
 WHERE estatus = 1 AND email = ?
         `;
         const values = [data.correo];
