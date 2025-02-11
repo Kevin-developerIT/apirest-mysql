@@ -38,7 +38,7 @@ app.use((request,response,next) => {
   const email = require('./routes/regionalartist/correo.routes');
   const claves = require('./routes/clavesweb/clave.routes');
   const vw = require('./routes/vw/vw.routes');
-
+  const zurich = require('./routes/zurich/zurich.routes');
 
 
   //Routes
@@ -49,7 +49,7 @@ app.use((request,response,next) => {
   app.use('/api/correo', email);
   app.use('/api/vwclave', claves);
   app.use('/api/vweb', vw);
- 
+  app.use('/api/zurich', zurich);
   
 
 app.listen(port, (err) => {
