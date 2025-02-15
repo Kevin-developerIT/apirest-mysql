@@ -6,7 +6,17 @@ const someProtectedController = require('../../controllers/authController/somePr
 const multer = require('multer')
 const uploader = multer({storage})
 
-const save = require('../../controllers/zurich/save')
+const consulta = require('../../controllers/zurich/consulta');
+const save = require('../../controllers/zurich/save');
+const delet = require('../../controllers/zurich/delete');
+
+router.route('/deleteVoto').delete( (request,response) => {
+     let params = { ...request.body };
+     delet.deleteVoto(params).then(result => {
+     response.status(201).json(result);
+     });
+    });
+
 
  
 
@@ -17,7 +27,20 @@ router.route('/savevoto').post( (request,response) => {
      });
     });
 
-  
+    router.route('/getConteoVotos', authenticateToken).post( (request,response) => {
+     let params = { ...request.body };
+
+     consulta.getConteoVotos(params, request) // Asegúrate de pasar la solicitud para la autenticación
+         .then(result => {
+             response.status(200).json(result); // Usar 200 para solicitudes exitosas
+         })
+         .catch(error => {
+             response.status(error.status || 500).json({ message: error.message }); // Manejo de errores
+         });
+
+    });
+
+    
 
 
     module.exports = router;
