@@ -43,7 +43,7 @@ exports.loginContraseniavw = async (req, res) => {
 
     try {
         // Consulta para obtener el usuario por correo
-        const query = 'SELECT email, password FROM u943042028_registro.tb_wap_web_usuriosvw_reg_01 WHERE email = ?;';
+        const query = 'SELECT email, password FROM u943042028_registro.tb_web_usuriosvw_reg_01 WHERE email = ?;';
         const [rows] = await pool.query(query, [email]);
 
         if (rows.length === 0) {
